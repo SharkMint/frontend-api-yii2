@@ -8,15 +8,21 @@ const Perfil = () => {
   const [perfil, setPerfil] = useState();
 
   useEffect(() => {
-    axios.post('/api/url')
+    axios.post('/api/url', 
+    {
+      mode: 'cors',
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then(response => {
         const data = response.data;
         setPerfil(data);
         console.log(data);
       })
       .catch(response => {
-        const errorMessage = response.data.errors
-        console.error(errorMessage);
+        console.error(response);
       })
   }, [])
 

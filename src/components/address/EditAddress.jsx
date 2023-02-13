@@ -33,7 +33,11 @@ const EditAddress = () => {
 
     axios.put('/api/address/:id', formData, 
     {
-      accept: 'application/json',
+      mode: 'cors',
+      method: "put",
+      headers: {
+        "Content-Type": "application/json",
+      },
     })
       .then(response => {
         const success = response.data;

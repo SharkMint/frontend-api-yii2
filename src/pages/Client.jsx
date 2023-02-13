@@ -8,31 +8,38 @@ const Client = () => {
   const [client, setClient] = useState();
 
   useEffect(() => {
-    axios.post('/api/url')
+    axios.get('/api/url',
+      {
+        mode: 'cors',
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then(response => {
         const data = response.data;
         setClient(data);
         console.log(data);
       })
-      .catch(response => {
-        const errorMessage = response.data.errors
-        console.error(errorMessage);
+      .catch(e => {
+        console.error(e);
       })
   }, [])
 
   const handleDelete = () => {
     axios.delete('/api/client/{id}')
-    .then(response => {
-      if(response === false) {
-        alert('Error al eliminar.');
-      } else {
-        console.log('Success');
-      }
-    })
-    .catch(error => {
-      const errorMessage = error
-      console.error(errorMessage)
-    })
+      .then(response => {
+        if (response === false) {
+          alert('Error al eliminar.');
+        } else {
+          console.log('Success');
+        }
+      })
+      .catch(error => {
+        const errorMessage = error
+        console.error(errorMessage)
+      })
   }
 
   return (
@@ -41,7 +48,7 @@ const Client = () => {
         <h1 className="text-center mt-4 mb-4" >Lista de clientes</h1>
 
         <button className="btn btn-success mb-4" >
-          <Link className="nav-link"  to="/createclient" >
+          <Link className="nav-link" to="/createclient" >
             Crear cliente
           </Link>
         </button>
@@ -77,7 +84,7 @@ const Client = () => {
                     <td className="col" >Otto</td>
                     <td className="col" >@mdo</td>
                     <button className="col btn btn-warning" >
-                      <Link className="nav-link ist-inline-item"  to="/client/:id " >
+                      <Link className="nav-link ist-inline-item" to="/client/:id " >
                         Editar
                       </Link>
                     </button>

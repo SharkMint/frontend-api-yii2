@@ -8,15 +8,21 @@ const Address = () => {
   const [address, setAddress] = useState();
 
   useEffect(() => {
-    axios.post('/api/url')
+    axios.post('/api/url', 
+    {
+      mode: 'cors',
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then(response => {
         const data = response.data;
         setAddress(data);
         console.log(data);
       })
       .catch(response => {
-        const errorMessage = response.data.errors
-        console.error(errorMessage);
+        console.error(response);
       })
   }, [])
 
@@ -48,12 +54,12 @@ const Address = () => {
                     <td className="col" >@mdo</td>
                     <td className="col" >Otto</td>
                     <button className="col btn btn-warning" >
-                      <Link className="nav-link ist-inline-item"  to="/address/:id " >
+                      <Link className="nav-link ist-inline-item" to="/address/:id " >
                         Edit
                       </Link>
                     </button>
                     <button className="col btn btn-danger" >
-                      <Link className="nav-link ist-inline-item"  to="/address/:id " >
+                      <Link className="nav-link ist-inline-item" to="/address/:id " >
                         Delete
                       </Link>
                     </button>
